@@ -1,140 +1,203 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title>Chúc mừng sinh nhật Na 🎂</title>
+<meta charset="UTF-8">
+<title>Chúc mừng sinh nhật Na 🎂</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #2b003a, #4b0066);
-      color: white;
-      text-align: center;
-      overflow-x: hidden;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at top, #4b0066, #1a001f);
+  color: white;
+  text-align: center;
+  overflow: hidden;
+}
 
-    h1 {
-      margin-top: 40px;
-      font-size: 38px;
-      color: #ffb6ff;
-      text-shadow: 0 0 10px #ff66ff;
-    }
+h1 {
+  margin-top: 35px;
+  font-size: 40px;
+  color: #ffb6ff;
+  text-shadow: 0 0 15px #ff66ff;
+}
 
-    .card {
-      background: rgba(255,255,255,0.12);
-      margin: 30px auto;
-      padding: 20px;
-      max-width: 500px;
-      border-radius: 20px;
-      box-shadow: 0 0 25px rgba(255,0,255,0.4);
-    }
+.card {
+  background: rgba(255,255,255,0.12);
+  margin: 25px auto;
+  padding: 20px;
+  max-width: 500px;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(255,0,255,0.5);
+  position: relative;
+  z-index: 10;
+}
 
-    input, textarea {
-      width: 90%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 10px;
-      border: none;
-      font-size: 16px;
-    }
+input, textarea {
+  width: 90%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+}
 
-    button {
-      background: #ff66ff;
-      color: white;
-      border: none;
-      padding: 12px 25px;
-      border-radius: 20px;
-      font-size: 16px;
-      cursor: pointer;
-    }
+button {
+  background: #ff66ff;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
 
-    button:hover {
-      background: #ff33ff;
-    }
+button:hover { background: #ff33ff; }
 
-    .messages {
-      margin-top: 20px;
-      text-align: left;
-    }
+.messages { margin-top: 20px; text-align: left; }
 
-    .msg {
-      background: rgba(0,0,0,0.3);
-      padding: 10px;
-      border-radius: 10px;
-      margin-bottom: 10px;
-    }
+.msg {
+  background: rgba(0,0,0,0.35);
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
 
-    .na-img {
-      position: fixed;
-      width: 120px;
-      animation: float 6s infinite ease-in-out;
-      border-radius: 20px;
-      box-shadow: 0 0 20px pink;
-      opacity: 0.95;
-    }
+.na-img {
+  position: fixed;
+  width: 120px;
+  animation: float 6s infinite ease-in-out;
+  border-radius: 20px;
+  box-shadow: 0 0 25px pink;
+  opacity: 0.95;
+  z-index: 5;
+}
 
-    @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-25px); }
-      100% { transform: translateY(0); }
-    }
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-30px); }
+  100% { transform: translateY(0); }
+}
 
-    footer {
-      margin: 40px 0;
-      opacity: 0.7;
-      font-size: 14px;
-    }
-  </style>
+/* TIM + SAO */
+.spark {
+  position: fixed;
+  font-size: 20px;
+  animation: fall linear forwards;
+  pointer-events: none;
+}
+
+@keyframes fall {
+  from { transform: translateY(-10vh); opacity: 1; }
+  to { transform: translateY(110vh); opacity: 0; }
+}
+
+/* CANVAS PHÁO HOA */
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+footer {
+  margin: 40px 0;
+  opacity: 0.7;
+  font-size: 14px;
+  z-index: 10;
+  position: relative;
+}
+</style>
 </head>
 
 <body>
 
-  <h1>🎉 Chúc mừng sinh nhật Na 🎂</h1>
+<canvas id="fireworks"></canvas>
 
-  <div class="card">
-    <h2>💜 Gửi lời chúc cho Na 💜</h2>
+<h1>🎉 Chúc mừng sinh nhật Na 🎂</h1>
 
-    <input id="name" placeholder="Tên của bạn">
-    <textarea id="wish" rows="4" placeholder="Lời chúc dành cho Na 💖"></textarea>
-    <br>
-    <button onclick="sendWish()">Gửi lời chúc ✨</button>
+<div class="card">
+  <h2>💜 Gửi lời chúc cho Na 💜</h2>
+  <input id="name" placeholder="Tên của bạn">
+  <textarea id="wish" rows="4" placeholder="Lời chúc dành cho Na 💖"></textarea>
+  <br>
+  <button onclick="sendWish()">Gửi lời chúc ✨</button>
+  <div class="messages" id="messages"></div>
+</div>
 
-    <div class="messages" id="messages"></div>
-  </div>
+<!-- 6 ảnh Na -->
+<img class="na-img" src="./na1.jpg" style="top:5%; left:5%;">
+<img class="na-img" src="./na2.jpg" style="top:20%; right:5%;">
+<img class="na-img" src="./na3.jpg" style="top:45%; left:3%;">
+<img class="na-img" src="./na4.jpg" style="top:60%; right:6%;">
+<img class="na-img" src="./na5.jpg" style="bottom:20%; left:8%;">
+<img class="na-img" src="./na6.jpg" style="bottom:5%; right:5%;">
 
-  <!-- 6 ảnh Na trang trí -->
-  <img class="na-img" src="./na1.jpg" style="top:5%; left:5%;">
-  <img class="na-img" src="./na2.jpg" style="top:20%; right:5%;">
-  <img class="na-img" src="./na3.jpg" style="top:45%; left:3%;">
-  <img class="na-img" src="./na4.jpg" style="top:60%; right:6%;">
-  <img class="na-img" src="./na5.jpg" style="bottom:20%; left:8%;">
-  <img class="na-img" src="./na6.jpg" style="bottom:5%; right:5%;">
+<footer>💜 Made by bạn 💜</footer>
 
-  <footer>
-    💜 Made by bạn 💜
-  </footer>
+<script>
+function sendWish() {
+  const name = document.getElementById("name").value;
+  const wish = document.getElementById("wish").value;
+  if (!name || !wish) return alert("Nhập đầy đủ nha 💜");
+  const msg = document.createElement("div");
+  msg.className = "msg";
+  msg.innerHTML = "<strong>" + name + ":</strong><br>" + wish;
+  document.getElementById("messages").prepend(msg);
+  document.getElementById("name").value = "";
+  document.getElementById("wish").value = "";
+}
 
-  <script>
-    function sendWish() {
-      const name = document.getElementById("name").value;
-      const wish = document.getElementById("wish").value;
+/* TIM + SAO RƠI */
+setInterval(() => {
+  const spark = document.createElement("div");
+  spark.className = "spark";
+  spark.style.left = Math.random() * 100 + "vw";
+  spark.style.animationDuration = (2 + Math.random() * 3) + "s";
+  spark.innerText = Math.random() > 0.5 ? "💖" : "✨";
+  document.body.appendChild(spark);
+  setTimeout(() => spark.remove(), 5000);
+}, 200);
 
-      if (!name || !wish) {
-        alert("Nhập đầy đủ nha 💜");
-        return;
-      }
+/* PHÁO HOA */
+const canvas = document.getElementById("fireworks");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-      const msg = document.createElement("div");
-      msg.className = "msg";
-      msg.innerHTML = "<strong>" + name + ":</strong><br>" + wish;
+function firework() {
+  const x = Math.random() * canvas.width;
+  const y = Math.random() * canvas.height * 0.5;
+  for (let i = 0; i < 60; i++) {
+    const angle = Math.random() * Math.PI * 2;
+    const speed = Math.random() * 4 + 2;
+    const life = 60;
+    particles.push({
+      x, y,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      life
+    });
+  }
+}
 
-      document.getElementById("messages").prepend(msg);
+let particles = [];
 
-      document.getElementById("name").value = "";
-      document.getElementById("wish").value = "";
-    }
-  </script>
+function animate() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach((p,i) => {
+    p.x += p.vx;
+    p.y += p.vy;
+    p.life--;
+    ctx.fillStyle = "hsl(" + Math.random()*360 + ",100%,70%)";
+    ctx.fillRect(p.x,p.y,3,3);
+    if (p.life <= 0) particles.splice(i,1);
+  });
+  requestAnimationFrame(animate);
+}
+
+setInterval(firework, 800);
+animate();
+</script>
 
 </body>
 </html>
